@@ -265,6 +265,11 @@
             '../ui/ui.gyp:ui_resources',
           ],
         }],  # toolkit_views==1
+        ['use_ozone==1', {
+          'sources/': [
+            ['exclude', 'runtime/browser/ui/desktop_root_window_host_xwalk.cc'],
+          ],
+        }],
         ['use_aura==1', {
           'dependencies': [
             '../ui/aura/aura.gyp:aura',

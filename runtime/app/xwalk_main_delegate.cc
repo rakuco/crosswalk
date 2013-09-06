@@ -19,6 +19,11 @@
 #include "ui/base/resource/resource_bundle.h"
 #include "ui/base/ui_base_paths.h"
 
+#if defined(USE_OZONE)
+#include "ozone/impl/desktop_factory_wayland.h"
+#include "ozone/impl/ozone_display.h"
+#endif
+
 namespace xwalk {
 
 XWalkMainDelegate::XWalkMainDelegate()
@@ -55,6 +60,12 @@ void XWalkMainDelegate::PreSandboxStartup() {
 
   RegisterPathProvider();
   InitializeResourceBundle();
+#if defined(USE_OZONE)
+  gfx::SurfaceFactoryOzone *o_factory = new ozonewayland::OzoneDisplay();
+  gfx::SurfaceFactoryOzone::SetInstance(o_factory);
+  views::DesktopFactoryOzone *d_factory = new ozonewayland::DesktopFactoryWayland();
+  views::DesktopFactoryOzone::SetInstance(d_factory);
+#endif
 }
 
 int XWalkMainDelegate::RunProcess(const std::string& process_type,

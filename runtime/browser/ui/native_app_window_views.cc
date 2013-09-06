@@ -67,7 +67,7 @@ NativeAppWindowViews::NativeAppWindowViews(
   // On Tizen apps are sized to the work area. Set manually to avoid inset.
   gfx::Rect bounds = gfx::Screen::GetNativeScreen()->GetPrimaryDisplay().work_area();
   window_->SetBounds(bounds);
-#else
+#elif !defined(USE_OZONE)
   window_->CenterWindow(create_params.bounds.size());
 #endif
 
