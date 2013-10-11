@@ -12,6 +12,10 @@ blink_crosswalk_point = '293e75f05d1753b2c33e42e9414aff1e8e2d6165'
 deps_xwalk = {
   'src': 'https://github.com/crosswalk-project/chromium-crosswalk.git@%s' % chromium_crosswalk_point,
   'src/third_party/WebKit': 'https://github.com/crosswalk-project/blink-crosswalk.git@%s' % blink_crosswalk_point,
+
+  # Point to our own Mesa fork containing additional patches needed
+  # for Ozone-Wayland support.
+  'src/third_party/mesa/src': 'https://github.com/rakuco/chromium-mesa.git@ozone-wayland',
 }
 vars_xwalk = {
   'jsoncpp': 'http://svn.code.sf.net/p/jsoncpp/code',
