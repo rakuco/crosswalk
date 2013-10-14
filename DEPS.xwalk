@@ -13,6 +13,8 @@ deps_xwalk = {
   'src': 'https://github.com/crosswalk-project/chromium-crosswalk.git@%s' % chromium_crosswalk_point,
   'src/third_party/WebKit': 'https://github.com/crosswalk-project/blink-crosswalk.git@%s' % blink_crosswalk_point,
 
+  'src/ozone': 'https://github.com/rakuco/ozone-wayland.git@origin/chromium-31.0.1650.12',
+
   # Point to our own Mesa fork containing additional patches needed
   # for Ozone-Wayland support.
   'src/third_party/mesa/src': 'https://github.com/rakuco/chromium-mesa.git@ozone-wayland',
