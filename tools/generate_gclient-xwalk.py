@@ -36,10 +36,19 @@ def GenerateGClientXWalk(options):
   with open(os.path.join(CROSSWALK_ROOT, 'DEPS.xwalk')) as deps_file:
     deps_contents = deps_file.read()
 
-  if 'XWALK_OS_ANDROID' in os.environ:
-    deps_contents += 'target_os = [\'android\']\n'
-
   gclient_config = ParseGClientConfig()
+
+  if 'XWALK_OS_ANDROID' in os.environ:
+    logging.warning('Setting the "XWALK_OS_ANDROID" environment variable is '
+                    'deprecated and support for it will be removed in '
+                    'Crosswalk 8. You should set "target_os" to ["android"] '
+                    'in .gclient instead.')
+    deps_contents += 'target_os = [\'android\']\n'
+  else:
+    target_os = config.get('target_os')
+    if target_os:
+      deps_contents += 'target_os = %s\n' % pprint.pformat(target_os)
+
   if options.cache_dir:
     logging.warning('--cache_dir is deprecated and will be removed in '
                     'Crosswalk 8. You should set cache_dir in .gclient '
