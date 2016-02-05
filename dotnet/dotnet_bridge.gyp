@@ -1,4 +1,7 @@
 {
+    'variables': {
+      'chromium_code': 1,
+    },
     # This is needed so that /RTC1 and /MTx are not added to the
     # compilation command line (it's not compatible with /clr)
     'target_defaults': {

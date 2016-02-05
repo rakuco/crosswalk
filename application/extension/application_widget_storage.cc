@@ -44,9 +44,6 @@ const char kUpdateItemWithBindOp[] =
 const char kRemoveItemWithBindOp[] =
     "DELETE FROM widget_storage WHERE key = ?";
 
-const char kSelectTableLength[] =
-    "SELECT count(*) FROM widget_storage ";
-
 const char kSelectCountWithBindOp[] =
     "SELECT count(*) FROM widget_storage "
     "WHERE key = ?";
@@ -69,7 +66,7 @@ namespace application {
 AppWidgetStorage::AppWidgetStorage(Application* application,
                                    const base::FilePath& data_dir)
     : application_(application),
-      data_path_(data_dir) ,
+      data_path_(data_dir),
       db_initialized_(false) {
   sqlite_db_.reset(new sql::Connection);
 

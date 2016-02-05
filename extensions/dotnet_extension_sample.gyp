@@ -1,4 +1,7 @@
 {
+  'variables': {
+    'chromium_code': 1,
+  },
   'targets': [
     {
       'target_name': 'dotnet_echo_extension',

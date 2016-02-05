@@ -1,4 +1,7 @@
 {
+  'variables': {
+    'chromium_code': 1,
+  },
   'target_defaults': {
     'include_dirs': [
       '../..',

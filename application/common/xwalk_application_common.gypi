@@ -1,5 +1,8 @@
 {
-'targets': [
+  'variables': {
+    'chromium_code': 1,
+  },
+  'targets': [
     {
       'target_name': 'xwalk_application_common_lib',
       'type': 'static_library',

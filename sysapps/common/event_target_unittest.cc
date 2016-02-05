@@ -28,7 +28,7 @@ scoped_ptr<XWalkExtensionFunctionInfo> CreateFunctionInfo(
       base::Bind(&DummyCallback)));
 }
 
-void DispatchResult(int* message_count, scoped_ptr<base::ListValue> result) {
+void DispatchResult(unsigned* message_count, scoped_ptr<base::ListValue> result) {
   std::string test_string;
   result->GetString(0, &test_string);
   EXPECT_EQ(test_string, kTestString);
@@ -144,7 +144,7 @@ TEST(XWalkSysAppsEventTargetTest, DispatchEvent) {
   target->InjectEvent("event1");
   target->InjectEvent("event1");
 
-  int message_count = 0;
+  unsigned message_count = 0;
 
   scoped_ptr<base::ListValue> argumentsList(new base::ListValue);
   argumentsList->AppendString("event1");

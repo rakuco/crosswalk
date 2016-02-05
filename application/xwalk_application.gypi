@@ -1,5 +1,5 @@
 {
-'targets': [
+  'targets': [
     {
       'target_name': 'xwalk_application_lib',
       'type': 'static_library',

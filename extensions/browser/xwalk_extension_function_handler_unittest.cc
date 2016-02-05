@@ -22,7 +22,7 @@ void StoreFunctionInfo(XWalkExtensionFunctionInfo** info_ptr,
   *info_ptr = info.release();
 }
 
-void EchoData(int* counter, scoped_ptr<XWalkExtensionFunctionInfo> info) {
+void EchoData(unsigned* counter, scoped_ptr<XWalkExtensionFunctionInfo> info) {
   std::string str;
   info->arguments()->GetString(0, &str);
   EXPECT_EQ(str, kTestString);
@@ -35,7 +35,7 @@ void EchoData(int* counter, scoped_ptr<XWalkExtensionFunctionInfo> info) {
   (*counter)++;
 }
 
-void ResetCounter(int* counter, scoped_ptr<XWalkExtensionFunctionInfo> info) {
+void ResetCounter(unsigned* counter, scoped_ptr<XWalkExtensionFunctionInfo> info) {
   *counter = 0;
 }
 
@@ -59,7 +59,7 @@ TEST(XWalkExtensionFunctionHandlerTest, PostResult) {
 TEST(XWalkExtensionFunctionHandlerTest, RegisterAndHandleFunction) {
   XWalkExtensionFunctionHandler handler(NULL);
 
-  int counter = 0;
+  unsigned counter = 0;
   handler.Register("echoData", base::Bind(&EchoData, &counter));
   handler.Register("reset", base::Bind(&ResetCounter, &counter));
 
@@ -88,7 +88,7 @@ TEST(XWalkExtensionFunctionHandlerTest, RegisterAndHandleFunction) {
       base::Bind(&DispatchResult, &str2)));
 
   handler.HandleFunction(std::move(info2));
-  EXPECT_EQ(counter, 0);
+  EXPECT_EQ(counter, 0U);
 
   // Dispatching to a non registered handler should not crash.
   std::string str3;

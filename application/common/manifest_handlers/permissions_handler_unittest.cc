@@ -39,7 +39,7 @@ TEST_F(PermissionsHandlerTest, NonePermission) {
       make_scoped_ptr(new Manifest(make_scoped_ptr(manifest.DeepCopy()))),
       &error);
   EXPECT_TRUE(application.get());
-  EXPECT_EQ(GetAPIPermissionsInfo(application).size(), 0);
+  EXPECT_EQ(GetAPIPermissionsInfo(application).size(), 0U);
 }
 
 TEST_F(PermissionsHandlerTest, EmptyPermission) {
@@ -55,7 +55,7 @@ TEST_F(PermissionsHandlerTest, EmptyPermission) {
       make_scoped_ptr(new Manifest(make_scoped_ptr(manifest.DeepCopy()))),
       &error);
   EXPECT_TRUE(application.get());
-  EXPECT_EQ(GetAPIPermissionsInfo(application).size(), 0);
+  EXPECT_EQ(GetAPIPermissionsInfo(application).size(), 0U);
 }
 
 TEST_F(PermissionsHandlerTest, DeviceAPIPermission) {
@@ -74,7 +74,7 @@ TEST_F(PermissionsHandlerTest, DeviceAPIPermission) {
   EXPECT_TRUE(application.get());
   const PermissionSet& permission_list =
       GetAPIPermissionsInfo(application);
-  EXPECT_EQ(permission_list.size(), 1);
+  EXPECT_EQ(permission_list.size(), 1U);
   EXPECT_STREQ((*(permission_list.begin())).c_str(), "geolocation");
 }
 

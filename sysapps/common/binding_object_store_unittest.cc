@@ -46,11 +46,11 @@ class BindingObjectTest : public BindingObject {
     instance_count_--;
   }
 
-  static int instance_count() {
+  static unsigned instance_count() {
     return instance_count_;
   }
 
-  int call_count() const {
+  unsigned call_count() const {
     return call_count_;
   }
 
@@ -65,11 +65,11 @@ class BindingObjectTest : public BindingObject {
     call_count_++;
   }
 
-  int call_count_;
-  static int instance_count_;
+  unsigned call_count_;
+  static unsigned instance_count_;
 };
 
-int BindingObjectTest::instance_count_ = 0;
+unsigned BindingObjectTest::instance_count_ = 0;
 
 }  // namespace
 
@@ -93,11 +93,11 @@ TEST(XWalkSysAppsBindingObjectStoreTest, AddBindingObject) {
   EXPECT_TRUE(store->HasObjectForTesting("foobar3"));
   EXPECT_TRUE(store->HasObjectForTesting("foobar4"));
 
-  EXPECT_EQ(BindingObjectTest::instance_count(), 4);
+  EXPECT_EQ(BindingObjectTest::instance_count(), 4U);
 
   handler.reset(new XWalkExtensionFunctionHandler(NULL));
   store.reset(new BindingObjectStore(handler.get()));
-  EXPECT_EQ(BindingObjectTest::instance_count(), 0);
+  EXPECT_EQ(BindingObjectTest::instance_count(), 0U);
 
   // Same ID, should discard the object. If this is happening in
   // real life, there is something wrong with the code (and that is
@@ -106,10 +106,10 @@ TEST(XWalkSysAppsBindingObjectStoreTest, AddBindingObject) {
   store->AddBindingObject("foobar1", BindingObjectTest::Create());
   store->AddBindingObject("foobar1", BindingObjectTest::Create());
   store->AddBindingObject("foobar1", BindingObjectTest::Create());
-  EXPECT_EQ(BindingObjectTest::instance_count(), 1);
+  EXPECT_EQ(BindingObjectTest::instance_count(), 1U);
 
   store.reset();
-  EXPECT_EQ(BindingObjectTest::instance_count(), 0);
+  EXPECT_EQ(BindingObjectTest::instance_count(), 0U);
 }
 
 TEST(XWalkSysAppsBindingObjectStoreTest, OnJSObjectCollected) {
@@ -120,24 +120,24 @@ TEST(XWalkSysAppsBindingObjectStoreTest, OnJSObjectCollected) {
   store->AddBindingObject("foobar2", BindingObjectTest::Create());
   store->AddBindingObject("foobar3", BindingObjectTest::Create());
   store->AddBindingObject("foobar4", BindingObjectTest::Create());
-  EXPECT_EQ(BindingObjectTest::instance_count(), 4);
+  EXPECT_EQ(BindingObjectTest::instance_count(), 4U);
 
   EXPECT_TRUE(handler.HandleFunction(
           CreateFunctionInfo("JSObjectCollected", "foobar1")));
-  EXPECT_EQ(BindingObjectTest::instance_count(), 3);
+  EXPECT_EQ(BindingObjectTest::instance_count(), 3U);
 
   EXPECT_TRUE(handler.HandleFunction(
           CreateFunctionInfo("JSObjectCollected", "foobar2")));
-  EXPECT_EQ(BindingObjectTest::instance_count(), 2);
+  EXPECT_EQ(BindingObjectTest::instance_count(), 2U);
 
   // Attempt to destroy an object that doesn't exist
   // on the store.
   EXPECT_TRUE(handler.HandleFunction(
           CreateFunctionInfo("JSObjectCollected", "foobar2")));
-  EXPECT_EQ(BindingObjectTest::instance_count(), 2);
+  EXPECT_EQ(BindingObjectTest::instance_count(), 2U);
 
   store.reset();
-  EXPECT_EQ(BindingObjectTest::instance_count(), 0);
+  EXPECT_EQ(BindingObjectTest::instance_count(), 0U);
 }
 
 TEST(XWalkSysAppsBindingObjectStoreTest, OnPostMessageToObject) {
@@ -151,7 +151,7 @@ TEST(XWalkSysAppsBindingObjectStoreTest, OnPostMessageToObject) {
 
   store->AddBindingObject("foobar1", binding_object_ptr1.Pass());
   store->AddBindingObject("foobar2", binding_object_ptr2.Pass());
-  EXPECT_EQ(BindingObjectTest::instance_count(), 2);
+  EXPECT_EQ(BindingObjectTest::instance_count(), 2U);
 
   for (unsigned i = 0; i < 1000; ++i) {
     scoped_ptr<base::ListValue> arguments(new base::ListValue);
@@ -177,8 +177,8 @@ TEST(XWalkSysAppsBindingObjectStoreTest, OnPostMessageToObject) {
     EXPECT_EQ(binding_object1->call_count(), i + 1);
   }
 
-  EXPECT_EQ(binding_object2->call_count(), 0);
+  EXPECT_EQ(binding_object2->call_count(), 0U);
 
   store.reset();
-  EXPECT_EQ(BindingObjectTest::instance_count(), 0);
+  EXPECT_EQ(BindingObjectTest::instance_count(), 0U);
 }
