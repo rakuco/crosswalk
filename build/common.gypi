@@ -140,4 +140,9 @@
     'xwalk_core_library_artifact_id%': 'xwalk_core_library_canary',
     'xwalk_shared_library_artifact_id%': 'xwalk_shared_library_canary',
   },
+  'target_defaults': {
+    'defines': [
+      'OFFICIAL_BUILD=1',
+    ],
+  },
 }
