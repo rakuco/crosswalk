@@ -17,7 +17,7 @@ class TestExtension : public XWalkExternalExtension {
     : XWalkExternalExtension(path),
     runtime_variables_(new base::DictionaryValue::Storage) {
     (*runtime_variables_)["extension_path"] =
-      new base::StringValue(path.AsUTF8Unsafe());
+        base::WrapUnique(new base::StringValue(path.AsUTF8Unsafe()));
     set_runtime_variables(runtime_variables_.get());
   }
   XWalkExternalInstance* CreateExternalInstance() {
